@@ -47,5 +47,10 @@ namespace Weblog.Domain.Service.Services.PostAgg
         {
             postRepository.UpdatePost(postId, input);
         }
+
+        public void DeletePost(int postId)
+        {
+            postRepository.DeletePost(postId);
+        }
     }
 }

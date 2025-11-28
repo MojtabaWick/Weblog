@@ -16,5 +16,7 @@ namespace Weblog.Domain.Core.PostAgg.Contracts
         public PostShowDto? GetPostDetails(int postId);
 
         public void UpdatePost(int postId, PostInputDto input);
+
+        public void DeletePost(int postId);
     }
 }

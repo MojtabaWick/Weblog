@@ -139,5 +139,14 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
                        .SetProperty(p => p.AuthorId, input.AuthorId)
                );
         }
+
+        public void DeletePost(int postId)
+        {
+            dbContext.Posts
+                .Where(p => p.Id == postId)
+                .ExecuteUpdate(setters => setters
+                    .SetProperty(p => p.IsDeleted, true)
+                );
+        }
     }
 }

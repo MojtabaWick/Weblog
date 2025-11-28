@@ -14,5 +14,11 @@ namespace Weblog.Presentation.RazorPages.Pages.Admin.Posts
         {
             Posts = postService.GetAuthorPosts(InMemoryDatabase.OnlineUser.Id);
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            postService.DeletePost(id);
+            return RedirectToPage();
+        }
     }
 }
