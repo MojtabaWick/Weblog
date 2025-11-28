@@ -7,6 +7,8 @@ namespace Weblog.Domain.Core.CategoryAgg.Contracts
     {
         public bool Add(Category newCategory);
 
+        public List<CategoryDto> GetAllCategories();
+
         public void DeleteCategory(int categoryId);
 
         public List<CategoryDto> GetAuthorCategory(int AuthorId);

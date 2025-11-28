@@ -1,4 +1,5 @@
 ﻿@page "{page?}"
+
 @model Weblog.Presentation.RazorPages.Pages.Home.IndexModel
 @{
 }
@@ -11,12 +12,27 @@
         <div class="alert alert-info">هیچ پستی یافت نشد.</div>
     }
 
+    <form method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <select asp-for="CategoryId"
+                        asp-items="@(new SelectList(Model.Categories, "Id", "Name", Model.CategoryId))"
+                        class="form-select">
+                    <option value="">-- همه دسته‌بندی‌ها --</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+            </div>
+        </div>
+    </form>
+
     @foreach (var p in Model.HomePage.Posts)
     {
         <div class="card mb-3 shadow-sm">
             <div class="row g-0">
 
-                @if(!string.IsNullOrEmpty(p.ImageUrl))
+                @if (!string.IsNullOrEmpty(p.ImageUrl))
                 {
                     <div class="col-md-3">
                         <img src="@p.ImageUrl" class="img-fluid rounded-start" />
@@ -79,5 +95,6 @@
 
         </ul>
     </nav>
+
 
 </div>

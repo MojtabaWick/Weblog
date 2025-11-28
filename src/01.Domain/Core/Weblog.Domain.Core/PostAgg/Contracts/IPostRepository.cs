@@ -11,7 +11,7 @@ namespace Weblog.Domain.Core.PostAgg.Contracts
 
         public List<AuthorPostDtos> GetAuthorPosts(int authorsId);
 
-        public HomePagePostsDto GetHomePagePosts(int page, int pageSize);
+        public HomePagePostsDto GetHomePagePosts(int page, int pageSize, int? categoryId);
 
         public PostShowDto? GetPostDetails(int postId);
 

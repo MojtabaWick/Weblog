@@ -63,7 +63,7 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
                 }).ToList();
         }
 
-        public HomePagePostsDto GetHomePagePosts(int page, int pageSize)
+        public HomePagePostsDto GetHomePagePosts(int page, int pageSize, int? categoryId)
         {
             var query = dbContext.Posts
                 .OrderByDescending(p => p.CreatedAt)
@@ -79,6 +79,12 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
                     CategoryId = p.CategoryId,
                     PublishedAt = p.CreatedAt,
                 });
+
+            // اگر فیلتر دسته‌بندی اعمال شده باشد
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId.Value);
+            }
 
             int totalPosts = query.Count();
             int totalPages = (int)Math.Ceiling(totalPosts / (double)pageSize);

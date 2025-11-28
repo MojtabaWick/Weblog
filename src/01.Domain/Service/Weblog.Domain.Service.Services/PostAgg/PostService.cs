@@ -33,9 +33,9 @@ namespace Weblog.Domain.Service.Services.PostAgg
             return postRepository.GetAuthorPosts(authorsId);
         }
 
-        public HomePagePostsDto GetHomePagePosts(int page, int pageSize)
+        public HomePagePostsDto GetHomePagePosts(int page, int pageSize, int? categoryId)
         {
-            return postRepository.GetHomePagePosts(page, pageSize);
+            return postRepository.GetHomePagePosts(page, pageSize, categoryId);
         }
 
         public PostShowDto? GetPostDetails(int postId)

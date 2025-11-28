@@ -18,7 +18,7 @@ namespace Weblog.Infrastructure.EFCore.Repositories.CategoryAgg
         public List<CategoryDto> GetAuthorCategory(int AuthorId)
         {
             return dbContext.Categories
-                .Where(c=>c.AuthorId == AuthorId)
+                .Where(c => c.AuthorId == AuthorId)
                 .Include(c => c.Author)
                 .OrderByDescending(c => c.CreatedAt)
                 .Select(c => new CategoryDto()
@@ -27,6 +27,15 @@ namespace Weblog.Infrastructure.EFCore.Repositories.CategoryAgg
                     Name = c.Name,
                 })
                 .ToList();
+        }
+
+        public List<CategoryDto> GetAllCategories()
+        {
+            return dbContext.Categories.Select(c => new CategoryDto()
+            {
+                Id = c.Id,
+                Name = c.Name,
+            }).ToList();
         }
 
         public CategoryDto? GetCategoryById(int id)

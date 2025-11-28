@@ -9,6 +9,8 @@ namespace Weblog.Domain.Core.CategoryAgg.Contracts
 
         public void DeleteCategory(int categoryId);
 
+        public List<CategoryDto> GetAllCategories();
+
         public List<CategoryDto> GetAuthorCategory(int AuthorId);
 
         public CategoryDto? GetCategoryById(int id);

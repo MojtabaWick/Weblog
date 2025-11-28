@@ -22,6 +22,11 @@ namespace Weblog.Domain.Service.Services.CategoryAgg
 
         public void DeleteCategory(int categoryId) => categoryRepository.DeleteCategory(categoryId);
 
+        public List<CategoryDto> GetAllCategories()
+        {
+            return categoryRepository.GetAllCategories();
+        }
+
         public List<CategoryDto> GetAuthorCategory(int AuthorId)
         {
             return categoryRepository.GetAuthorCategory(AuthorId);
