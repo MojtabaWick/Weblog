@@ -1,10 +1,83 @@
-﻿@page
-@model IndexModel
+﻿@page "{page?}"
+@model Weblog.Presentation.RazorPages.Pages.Home.IndexModel
 @{
-    ViewData["Title"] = "Home page";
 }
+<div class="container mt-4">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 class="mb-4">آخرین پست‌ها</h2>
+
+    @if (Model.HomePage.Posts.Count == 0)
+    {
+        <div class="alert alert-info">هیچ پستی یافت نشد.</div>
+    }
+
+    @foreach (var p in Model.HomePage.Posts)
+    {
+        <div class="card mb-3 shadow-sm">
+            <div class="row g-0">
+
+                @if(!string.IsNullOrEmpty(p.ImageUrl))
+                {
+                    <div class="col-md-3">
+                        <img src="@p.ImageUrl" class="img-fluid rounded-start" />
+                    </div>
+                }
+
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h4 class="card-title">@p.Title</h4>
+                        <p class="card-text text-muted">
+                            @p.Content.Substring(0, Math.Min(150, p.Content.Length))...
+                        </p>
+
+                        <p class="card-text">
+                            <small class="text-muted">
+                                نویسنده: @p.AuthorName |
+                                دسته‌بندی: @p.CategoryName
+                            </small>
+                        </p>
+
+                        <a class="btn btn-primary btn-sm" href="/Post/Details/@p.Id">مشاهده پست</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+    <!-- ========= صفحه‌بندی کامل ========= -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            <!-- صفحه اول -->
+            <li class="page-item @(Model.HomePage.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=1">اولین</a>
+            </li>
+
+            <!-- قبلی -->
+            <li class="page-item @(Model.HomePage.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=@(Model.HomePage.CurrentPage - 1)">قبلی</a>
+            </li>
+
+            <!-- شماره صفحات -->
+            @for (int i = 1; i <= Model.HomePage.TotalPages; i++)
+            {
+                <li class="page-item @(Model.HomePage.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+
+            <!-- بعدی -->
+            <li class="page-item @(Model.HomePage.CurrentPage == Model.HomePage.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@(Model.HomePage.CurrentPage + 1)">بعدی</a>
+            </li>
+
+            <!-- آخرین -->
+            <li class="page-item @(Model.HomePage.CurrentPage == Model.HomePage.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@Model.HomePage.TotalPages">آخرین</a>
+            </li>
+
+        </ul>
+    </nav>
+
 </div>

@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Weblog.Domain.Core.PostAgg.Contracts;
+using Weblog.Domain.Core.PostAgg.Dtos;
 
 namespace Weblog.Presentation.RazorPages.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel(IPostService postService) : PageModel
     {
-        public void OnGet()
-        {
+        public HomePagePostsDto HomePage { get; set; }
 
+        public void OnGet(int page = 1)
+        {
+            HomePage = postService.GetHomePagePosts(page, 5);
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
         public List<AuthorPostDtos> GetAuthorPosts(int authorsId)
         {
             return dbContext.Posts
+                .Where(p => p.AuthorId == authorsId)
                 .OrderByDescending(p => p.Id)
                 .Select(p => new AuthorPostDtos
                 {
@@ -80,11 +81,12 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
 
             int totalPosts = query.Count();
             int totalPages = (int)Math.Ceiling(totalPosts / (double)pageSize);
+            if (totalPages == 0) totalPages = 1;
 
             if (page < 1) page = 1;
             if (page > totalPages) page = totalPages;
 
-            int skip = (page - 1) * pageSize;
+            int skip = Math.Max((page - 1) * pageSize, 0);
 
             var posts = query
                 .Skip(skip)

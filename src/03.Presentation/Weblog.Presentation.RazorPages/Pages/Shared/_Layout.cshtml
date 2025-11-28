@@ -11,26 +11,107 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Weblog.Presentation.RazorPages</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand fw-bold" asp-page="/Index">Weblog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- Home -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-page="/Index">خانه</a>
+
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+
+                        <!-- Account Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                حساب کاربری
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                                <li><a class="dropdown-item" asp-page="/Account/Login">ورود</a></li>
+                                <li><a class="dropdown-item" asp-page="/Account/Register">ثبت نام</a></li>
+                            </ul>
                         </li>
+
+                        <!-- Admin Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                مدیریت
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <!-- Categories -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">دسته‌ها</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Admin/Categories/Index">لیست دسته‌ها</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Admin/Categories/Create">ایجاد دسته</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Posts -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">پست‌ها</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Admin/Posts/Index">لیست پست‌ها</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Admin/Posts/Create">ایجاد پست</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Comments -->
+                                <li><a class="dropdown-item" asp-page="/Admin/Comments/Index">مدیریت کامنت‌ها</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    @section Scripts {
+        <script>
+            // فعال کردن submenu در Bootstrap 5
+            document.querySelectorAll('.dropdown-submenu > .dropdown-toggle').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const parent = this.parentElement;
+                    const submenu = this.nextElementSibling;
+
+                    // بستن بقیه submenu ها
+                    document.querySelectorAll('.dropdown-submenu .dropdown-menu.show').forEach(openMenu => {
+                        if (openMenu !== submenu) {
+                            openMenu.classList.remove('show');
+                        }
+                    });
+
+                    // باز و بسته کردن منوی فعلی
+                    submenu.classList.toggle('show');
+                });
+            });
+
+            // وقتی روی جای دیگه کلیک کرد بسته بشه
+            document.addEventListener('click', function () {
+                document.querySelectorAll('.dropdown-submenu .dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            });
+
+            // وقتی موس از روی منو رفت، بسته بشه (اختیاری)
+            document.querySelectorAll('.dropdown-submenu').forEach(submenu => {
+                submenu.addEventListener('mouseleave', function () {
+                    this.querySelector('.dropdown-menu')?.classList.remove('show');
+                });
+            });
+        </script>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
