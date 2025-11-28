@@ -1,4 +1,5 @@
 ﻿@page "{page?}"
+
 @model Weblog.Presentation.RazorPages.Pages.Home.IndexModel
 @{
 }
@@ -16,7 +17,7 @@
         <div class="card mb-3 shadow-sm">
             <div class="row g-0">
 
-                @if(!string.IsNullOrEmpty(p.ImageUrl))
+                @if (!string.IsNullOrEmpty(p.ImageUrl))
                 {
                     <div class="col-md-3">
                         <img src="@p.ImageUrl" class="img-fluid rounded-start" />
@@ -79,5 +80,6 @@
 
         </ul>
     </nav>
+
 
 </div>

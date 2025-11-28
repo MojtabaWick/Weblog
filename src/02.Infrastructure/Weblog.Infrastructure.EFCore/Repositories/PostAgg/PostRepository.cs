@@ -67,6 +67,7 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
         {
             var query = dbContext.Posts
                 .OrderByDescending(p => p.CreatedAt)
+                .ThenByDescending(p => p.Id)
                 .Select(p => new PostShowDto
                 {
                     Id = p.Id,
@@ -86,7 +87,7 @@ namespace Weblog.Infrastructure.EFCore.Repositories.PostAgg
             if (page < 1) page = 1;
             if (page > totalPages) page = totalPages;
 
-            int skip = Math.Max((page - 1) * pageSize, 0);
+            int skip = (page - 1) * pageSize;
 
             var posts = query
                 .Skip(skip)

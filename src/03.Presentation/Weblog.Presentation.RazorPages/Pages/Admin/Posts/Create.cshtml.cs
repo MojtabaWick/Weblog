@@ -5,6 +5,7 @@ using Weblog.Domain.Core.CategoryAgg.Dtos;
 using Weblog.Domain.Core.PostAgg.Contracts;
 using Weblog.Domain.Core.PostAgg.Dtos;
 using Weblog.Framework.Contracts;
+using Weblog.Infrastructure.EFCore.Migrations;
 using Weblog.Presentation.RazorPages.DataBase;
 
 namespace Weblog.Presentation.RazorPages.Pages.Admin.Posts
@@ -26,8 +27,30 @@ namespace Weblog.Presentation.RazorPages.Pages.Admin.Posts
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (ImageFile != null)
+            {
+                // 1) محدودیت حجم – 2 مگابایت
+                long maxSize = 2 * 1024 * 1024; // 2MB
+                if (ImageFile.Length > maxSize)
+                {
+                    ModelState.AddModelError("Input.ImageFile", "حجم فایل نباید بیشتر از 2 مگابایت باشد.");
+                }
+
+                // 2) محدودیت فرمت فایل
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                var extension = Path.GetExtension(ImageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("Input.ImageFile", "فقط فرمت‌های jpg و png مجاز هستند.");
+                }
+            }
+
             if (!ModelState.IsValid)
+            {
+                Categories = categoryService.GetAuthorCategory(InMemoryDatabase.OnlineUser.Id);
                 return Page();
+            }
 
             // آپلود تصویر
             if (ImageFile != null)
