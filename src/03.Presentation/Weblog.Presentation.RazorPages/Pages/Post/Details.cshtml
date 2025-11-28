@@ -1,0 +1,41 @@
+﻿@page "{id:int}"
+@model Weblog.Presentation.RazorPages.Pages.Post.DetailsModel
+
+<div class="container mt-4">
+    <div class="card mb-3 shadow-sm">
+        @if (!string.IsNullOrEmpty(Model.Post.ImageUrl))
+        {
+            <img src="@Model.Post.ImageUrl" class="card-img-top" />
+        }
+
+        <div class="card-body">
+            <h2 class="card-title">@Model.Post.Title</h2>
+            <p class="text-muted">نویسنده: @Model.Post.AuthorName | دسته‌بندی: @Model.Post.CategoryName</p>
+            <p class="card-text">@Model.Post.Content</p>
+        </div>
+    </div>
+
+    <h4 class="mt-4">کامنت‌ها</h4>
+    @if (!Model.Post.Comments.Any())
+    {
+        <div class="alert alert-info">هیچ کامنتی وجود ندارد.</div>
+    }
+    else
+    {
+        @foreach (var c in Model.Post.Comments)
+        {
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p><strong>@c.FirstName @c.LastName</strong> | امتیاز: @c.Score</p>
+                    <p>@c.Text</p>
+                </div>
+            </div>
+        }
+    }
+    <div class="mt-4">
+        <a asp-page="/Post/AddComment" asp-route-postId="@Model.Post.Id"
+           class="btn btn-primary">
+            افزودن کامنت جدید
+        </a>
+    </div>
+</div>

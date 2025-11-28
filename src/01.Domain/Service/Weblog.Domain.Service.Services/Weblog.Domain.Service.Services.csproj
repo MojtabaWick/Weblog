@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\00.Framework\Weblog.Framework\Weblog.Framework.csproj" />
+    <ProjectReference Include="..\..\Core\Weblog.Domain.Core\Weblog.Domain.Core.csproj" />
+  </ItemGroup>
+
+</Project>

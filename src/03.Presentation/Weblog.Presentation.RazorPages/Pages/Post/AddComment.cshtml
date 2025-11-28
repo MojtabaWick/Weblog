@@ -1,0 +1,53 @@
+﻿@page "{postId:int}"
+@model Weblog.Presentation.RazorPages.Pages.Post.AddCommentModel
+@{
+    ViewData["Title"] = "افزودن کامنت";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">افزودن کامنت جدید</h2>
+
+    <form method="post">
+
+        <input type="hidden" asp-for="Input.PostId" />
+
+        <div class="mb-3">
+            <label class="form-label">نام</label>
+            <input asp-for="Input.FirstName" class="form-control" />
+            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">نام خانوادگی</label>
+            <input asp-for="Input.LastName" class="form-control" />
+            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">ایمیل</label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">متن کامنت</label>
+            <textarea asp-for="Input.Text" rows="5" class="form-control"></textarea>
+            <span asp-validation-for="Input.Text" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">امتیاز (۱ تا ۵)</label>
+            <input asp-for="Input.Score" type="number" min="1" max="5" class="form-control" />
+            <span asp-validation-for="Input.Score" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">ثبت کامنت</button>
+        <a asp-page="Details" asp-route-id="@Model.Input.PostId" class="btn btn-secondary">بازگشت</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,19 @@
+﻿@page
+@model Weblog.Presentation.RazorPages.Pages.Admin.Categories.CreateModel
+@{
+    ViewData["Title"] = "ایجاد دسته جدید";
+}
+
+<h2>ایجاد دسته جدید</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">نام دسته</label>
+        <input asp-for="Category.Name" class="form-control" />
+        <span asp-validation-for="Category.Name" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-success" type="submit">ذخیره</button>
+    <a class="btn btn-secondary" asp-page="Index">بازگشت</a>
+</form>
+

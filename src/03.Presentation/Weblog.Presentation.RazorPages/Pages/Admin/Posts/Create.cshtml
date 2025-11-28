@@ -1,0 +1,59 @@
+﻿@page
+@model Weblog.Presentation.RazorPages.Pages.Admin.Posts.CreateModel
+@{
+    ViewData["Title"] = "ایجاد پست جدید";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">ایجاد پست جدید</h2>
+
+    <!-- پیام موفقیت -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+
+        <div class="mb-3">
+            <label class="form-label">عنوان پست</label>
+            <input asp-for="Post.Title" class="form-control" placeholder="عنوان پست را وارد کنید" />
+            <span asp-validation-for="Post.Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">محتوا</label>
+            <textarea asp-for="Post.Content" rows="6" class="form-control" placeholder="محتوای پست..."></textarea>
+            <span asp-validation-for="Post.Content" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">انتخاب دسته‌بندی</label>
+            <select asp-for="Post.CategoryId" class="form-select">
+                <option value="">-- انتخاب کنید --</option>
+
+                @* اینو تو OnGet از دیتابیس لود می‌کنی *@
+                @foreach (var c in @Model.Categories)
+                {
+                    <option value="@c.Id">@c.Name</option>
+                }
+            </select>
+            <span asp-validation-for="Post.CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">تصویر پست</label>
+            <input type="file" asp-for="ImageFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary px-4">ثبت پست</button>
+        <a asp-page="Index" class="btn btn-secondary ms-2">بازگشت</a>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,71 @@
+﻿@page
+@model Weblog.Presentation.RazorPages.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "ثبت نام نویسنده";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%; border-radius: 1rem;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">ثبت نام نویسنده</h2>
+            <p class="text-muted">لطفاً اطلاعات خود را وارد کنید</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3 text-end">
+                <label asp-for="Input.FirstName" class="form-label">نام</label>
+                <input asp-for="Input.FirstName" class="form-control text-end" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 text-end">
+                <label asp-for="Input.LastName" class="form-label">نام خانوادگی</label>
+                <input asp-for="Input.LastName" class="form-control text-end" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 text-end">
+                <label asp-for="Input.Username" class="form-label">نام کاربری</label>
+                <input asp-for="Input.Username" class="form-control text-end" />
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 text-end">
+                <label asp-for="Input.Password" class="form-label">رمز عبور</label>
+                <input asp-for="Input.Password" type="password" class="form-control text-end" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 text-end">
+                <label asp-for="Input.Bio" class="form-label">بیوگرافی</label>
+                <textarea asp-for="Input.Bio" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.Bio" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 text-end">
+                <label class="form-label">تصویر پروفایل</label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ResultMessage))
+            {
+                <div class="alert alert-danger text-center mb-3">
+                    @Model.ResultMessage
+                </div>
+            }
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold mb-2">
+                ثبت نام
+            </button>
+
+            <a asp-page="/Account/Login" class="btn btn-outline-secondary w-100 py-2 fw-bold">
+                ورود
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
