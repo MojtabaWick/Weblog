@@ -58,6 +58,8 @@ namespace Weblog.Presentation.RazorPages.Pages.Admin.Posts
                 Input.ImageUrl = fileService.Upload(Input.ImageFile, InMemoryDatabase.OnlineUser.Id.ToString());
             }
 
+            Input.AuthorId = InMemoryDatabase.OnlineUser.Id;
+
             postService.UpdatePost(id, Input);
 
             return RedirectToPage("Index");
