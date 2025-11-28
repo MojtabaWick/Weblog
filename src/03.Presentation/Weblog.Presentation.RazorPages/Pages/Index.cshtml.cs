@@ -10,7 +10,7 @@ namespace Weblog.Presentation.RazorPages.Pages
     public class IndexModel : PageModel
     {
         private readonly IPostService _postService;
-        private readonly ICategoryService _categoryService; // برای گرفتن لیست دسته‌بندی‌ها
+        private readonly ICategoryService _categoryService;
 
         public IndexModel(IPostService postService, ICategoryService categoryService)
         {
@@ -19,10 +19,10 @@ namespace Weblog.Presentation.RazorPages.Pages
         }
 
         public HomePagePostsDto HomePage { get; set; }
-        public List<CategoryDto> Categories { get; set; } // لیست دسته‌بندی‌ها
+        public List<CategoryDto> Categories { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int? CategoryId { get; set; } // پارامتر فیلتر
+        public int? CategoryId { get; set; }
 
         public void OnGet([FromQuery] int page = 1)
         {
